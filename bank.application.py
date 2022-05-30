@@ -134,7 +134,7 @@ def create_new_user(full_name, balance, gender):
         "account_creation_date": date
     }
     set_data(users)
-    print("created user with account number: ", account_number)
+    display_account_information_by_given_account_number(account_number)
 
 
 # ─── DELETE AN ACCOUNT ──────────────────────────────────────────────────────────
@@ -234,12 +234,12 @@ def display_menu():
 
     if user_choice == 4:
         print("── Deleting an Account ──────────────────────")
-        account_number = input("account_number_to_delete:")
+        account_number = input("Account number to delete: ")
         delete_account(account_number)
 
     if user_choice == 5:
         print("── Looking up Account Information ───────────")
-        account_number = input("account number: ")
+        account_number = input("Account number: ")
         display_account_information_by_given_account_number(account_number)
 
     if user_choice == 6:
@@ -252,7 +252,7 @@ def display_menu():
 
     print()
     print_horizonal_line()
-    print("PRESS ANYTHING TO CONTINUE")
+    print("PRESS ENTER TO CONTINUE")
     print()
     read_char()
 
