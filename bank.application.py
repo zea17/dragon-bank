@@ -43,6 +43,10 @@ def set_data(data):
 
 
 def clean_terminal_screen():
+    """
+    Cleans the terminal screen by performing a system
+    clear command. Cls on windows and Clear on UNIX ones.
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
@@ -50,6 +54,9 @@ def clean_terminal_screen():
 
 
 def read_char():
+    """
+    Reads only one character form the terminal screen
+    """
     sys.stdin.read(1)
 
 
@@ -57,6 +64,9 @@ def read_char():
 
 
 def print_horizonal_line():
+    """
+    A pretty decorative horoizontal line.
+    """
     print("─────────────────────────────────────────────")
 
 
@@ -187,46 +197,54 @@ def display_menu():
     clean_terminal_screen()
 
     print("               ＄ WELCOME ＄")
-    print("   ▽▲▽▲▽▲▽ You are in Dragon Bank! ▽▲▽▲▽▲▽")
+    print("   ▽▲▽▲▽▲▽ You Are in Dragon Bank! ▽▲▽▲▽▲▽")
     print_horizonal_line()
-    print("► 1 ∙ Create new account")
+    print("► 1 ∙ Create New Account")
     print_horizonal_line()
     print("► 2 ∙ Make Transaction")
     print_horizonal_line()
-    print("► 3 ∙ update information of existing account")
+    print("► 3 ∙ Update information of Existing Account")
     print_horizonal_line()
-    print("► 4 ∙ removing existing account")
+    print("► 4 ∙ Removing Existing Account")
     print_horizonal_line()
-    print("► 5 ∙ check the details of existing account")
+    print("► 5 ∙ Check The Details of Existing Account")
     print_horizonal_line()
-    print("► 6 ∙ view customer's list")
+    print("► 6 ∙ View Customer's List")
     print_horizonal_line()
-    print("► 7 ∙ exit")
+    print("► 7 ∙ Exit")
     print_horizonal_line()
 
-    user_choice = int(input("☞ enter your choice: "))
+    user_choice = int(input("☞ Enter your command: "))
 
     clean_terminal_screen()
 
     if user_choice == 1:
+        print("── Creating a new user ──────────────────────")
         user_name = input("Full Name: ")
         balance = float(input("Balance: "))
         gender = input("Gender: ")
         create_new_user(user_name, balance, gender)
+
     if user_choice == 2:
+        print("── Requesting Transaction ───────────────────")
         sender = input("Sender's Account Number: ")
         receiver = input("Recipient's Account Number: ")
         amount = float(input("Transaction Amount: "))
         perform_transaction(sender, receiver, amount)
+
     if user_choice == 4:
+        print("── Deleting an Account ──────────────────────")
         account_number = input("account_number_to_delete:")
         delete_account(account_number)
 
     if user_choice == 5:
+        print("── Looking up Account Information ───────────")
         account_number = input("account number: ")
         display_account_information_by_given_account_number(account_number)
 
     if user_choice == 6:
+        print_horizonal_line()
+        print("USERS OF THE DRAGON BANK")
         display_all_of_the_customers()
 
     if user_choice == 7:
