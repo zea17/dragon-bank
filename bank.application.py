@@ -94,7 +94,7 @@ def display_menu():
     print("►7∙exit")
     print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
 
-    user_choice = int(input("enter your choice:"))
+    user_choice = int(input("☞ enter your choice:"))
     if user_choice == 1:
         user_name = input("Full Name: ")
         balance = float(input("Balance: "))
