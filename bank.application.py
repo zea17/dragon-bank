@@ -62,13 +62,41 @@ def create_new_user(full_name, balance, gender):
     """
     users = get_data()
     date = datetime.today().strftime('%Y-%m-%d')
-    users[generate_account_number()] = {
+    account_number = generate_account_number()
+    users[account_number] = {
         "full_name": full_name,
         "gender": gender,
         "balance": balance,
         "account_creation_date": date
     }
     set_data(users)
+    print("created user with account number: ", account_number)
+
+
+def delete_account(account_number):
+    users = get_data()
+    if account_number not in users:
+        print("Did not found the account with number: " + account_number)
+        return
+    del users[account_number]
+    set_data(users)
+
+
+def display_users_details(account_number):
+    users = get_data()
+    user = users[account_number]
+    print("---------------------------")
+    print("Full name: ", user["full_name"])
+    print("Account number: ", account_number)
+    print("Gender: ", user["gender"])
+    print("Balance: ", user["balance"])
+    print("date: ", user["account_creation_date"])
+
+
+def customerslist():
+    users = get_data()
+    for account_number in users:
+        display_users_details(account_number)
 
 
 def display_menu():
@@ -105,6 +133,20 @@ def display_menu():
         receiver = input("Recipient's Account Number: ")
         amount = float(input("Transaction Amount: "))
         perform_transaction(sender, receiver, amount)
+    if user_choice == 4:
+        account_number = input("account_number_to_delete:")
+        delete_account(account_number)
+
+    if user_choice == 5:
+        account_number = input("account number: ")
+        display_users_details(account_number)
+
+    if user_choice == 6:
+        customerslist()
+
+    if user_choice == 7:
+        quit()
 
 
-display_menu()
+while True:
+    display_menu()
