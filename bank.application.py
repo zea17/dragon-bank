@@ -1,6 +1,14 @@
+
+
+# ─── IMPORTS ────────────────────────────────────────────────────────────────────
+
+
 from datetime import datetime
 import random
 import json
+
+
+# ─── DATABASE ───────────────────────────────────────────────────────────────────
 
 
 def get_data():
@@ -20,9 +28,14 @@ def set_data(data):
     f.write(json.dumps(data))
 
 
+# ─── ACCONUT NUMBER ─────────────────────────────────────────────────────────────
+
+
 def generate_account_number():
     """
-    Generates a new unique account number
+    Generates a new unique account number. The bank
+    prefix number is 1717 2424, the 8 other digits are
+    then generated randomly
     """
     prefix = "17172424"
     result = ""
@@ -31,6 +44,9 @@ def generate_account_number():
         result += str(random_number)
 
     return prefix + result
+
+
+# ─── TRANSACTION ────────────────────────────────────────────────────────────────
 
 
 def perform_transaction(sender_number, receiver_number, amount):
@@ -55,6 +71,12 @@ def perform_transaction(sender_number, receiver_number, amount):
 
     set_data(users)
 
+    print("Transfered ", amount, "$ from account",
+          sender_number, "to", receiver_number)
+
+
+# ─── CREATE A NEW USER ──────────────────────────────────────────────────────────
+
 
 def create_new_user(full_name, balance, gender):
     """
@@ -73,16 +95,29 @@ def create_new_user(full_name, balance, gender):
     print("created user with account number: ", account_number)
 
 
+# ─── DELETE AN ACCOUNT ──────────────────────────────────────────────────────────
+
+
 def delete_account(account_number):
+    """
+    Deletes an account if exists, otherwise displays an error
+    """
     users = get_data()
     if account_number not in users:
         print("Did not found the account with number: " + account_number)
         return
     del users[account_number]
     set_data(users)
+    print("Account number", account_number, "removed.")
 
 
-def display_users_details(account_number):
+# ─── DISPLAY INFORMATION OF A GIVEN ACCOUNT NUMBER ──────────────────────────────
+
+
+def display_account_information_by_given_account_number(account_number):
+    """
+    Diplays the information about a given account number
+    """
     users = get_data()
     user = users[account_number]
     print("---------------------------")
@@ -93,34 +128,47 @@ def display_users_details(account_number):
     print("date: ", user["account_creation_date"])
 
 
-def customerslist():
+# ─── DISPLAY ALL OF THE CUSTOMERS ───────────────────────────────────────────────
+
+
+def display_all_of_the_customers():
+    """
+    Lists all of the users and their information
+    one after the other.
+    """
     users = get_data()
     for account_number in users:
-        display_users_details(account_number)
+        display_account_information_by_given_account_number(account_number)
+
+
+# ─── DISPLAY MENU ───────────────────────────────────────────────────────────────
 
 
 def display_menu():
     """
     Displays the welcome menu and asks the user for a
-    command to perform (which then performs)
+    command to perform (which then performs).
+
+    This also acts as the UI and recieves the information
+    regarding of the respective functions.
     """
-    print("             ＄ WELCOME ＄")
-    print("▽▲▽▲▽▲▽ you are in dragon bank ▽▲▽▲▽▲▽")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("              ＄ WELCOME ＄")
+    print("  ▽▲▽▲▽▲▽ You are in Dragon Bank! ▽▲▽▲▽▲▽")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
     print("►1∙Create new account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
     print("►2∙Make Transaction")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
     print("►3∙update information of existing account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
     print("►4∙removing existing account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
     print("►5∙check the details of existing account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
     print("►6∙view customer's list")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
     print("►7∙exit")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
 
     user_choice = int(input("☞ enter your choice:"))
     if user_choice == 1:
@@ -139,14 +187,20 @@ def display_menu():
 
     if user_choice == 5:
         account_number = input("account number: ")
-        display_users_details(account_number)
+        display_account_information_by_given_account_number(account_number)
 
     if user_choice == 6:
-        customerslist()
+        display_all_of_the_customers()
 
     if user_choice == 7:
         quit()
 
 
+# ─── MAIN ───────────────────────────────────────────────────────────────────────
+
+
 while True:
     display_menu()
+
+
+# ────────────────────────────────────────────────────────────────────────────────
