@@ -1,0 +1,14 @@
+{
+    "zea": {
+        "gender": "woman",
+        "account_number": "1717242417171717",
+        "balance": 24.0,
+        "account_creation_date": "2022-05-30"
+    },
+    "pou": {
+        "gender": "man",
+        "account_number": "17172424288888888",
+        "balance": 17.0,
+        "account_creation_date": "2022-05-30"
+    }
+}
