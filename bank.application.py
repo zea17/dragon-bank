@@ -3,9 +3,11 @@
 # ─── IMPORTS ────────────────────────────────────────────────────────────────────
 
 
-from datetime import datetime
-import random
 import json
+import os
+import random
+import sys
+from datetime import datetime
 from os.path import exists
 
 
@@ -24,7 +26,7 @@ def get_data():
     """
     if not exists(FILE_PATH):
         return {}
-    f = open(FILE_PATH, "rw")
+    f = open(FILE_PATH, "r")
     data = f.read()
     return json.loads(data)
 
@@ -35,6 +37,27 @@ def set_data(data):
     """
     f = open(FILE_PATH, "w")
     f.write(json.dumps(data))
+
+
+# ─── TERMINAL CLEAN SCREEN ──────────────────────────────────────────────────────
+
+
+def clean_terminal_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+# ─── READ CHARACTER ─────────────────────────────────────────────────────────────
+
+
+def read_char():
+    sys.stdin.read(1)
+
+
+# ─── PRINT LINE ─────────────────────────────────────────────────────────────────
+
+
+def print_horizonal_line():
+    print("─────────────────────────────────────────────")
 
 
 # ─── ACCONUT NUMBER ─────────────────────────────────────────────────────────────
@@ -129,12 +152,12 @@ def display_account_information_by_given_account_number(account_number):
     """
     users = get_data()
     user = users[account_number]
-    print("---------------------------")
-    print("Full name: ", user["full_name"])
+    print_horizonal_line()
+    print("Full name:      ", user["full_name"])
     print("Account number: ", account_number)
-    print("Gender: ", user["gender"])
-    print("Balance: ", user["balance"])
-    print("date: ", user["account_creation_date"])
+    print("Gender:         ", user["gender"])
+    print("Balance:        ", user["balance"])
+    print("date:           ", user["account_creation_date"])
 
 
 # ─── DISPLAY ALL OF THE CUSTOMERS ───────────────────────────────────────────────
@@ -161,25 +184,30 @@ def display_menu():
     This also acts as the UI and recieves the information
     regarding of the respective functions.
     """
-    print("              ＄ WELCOME ＄")
-    print("  ▽▲▽▲▽▲▽ You are in Dragon Bank! ▽▲▽▲▽▲▽")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
-    print("►1∙Create new account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
-    print("►2∙Make Transaction")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
-    print("►3∙update information of existing account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
-    print("►4∙removing existing account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
-    print("►5∙check the details of existing account")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
-    print("►6∙view customer's list")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
-    print("►7∙exit")
-    print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
+    clean_terminal_screen()
 
-    user_choice = int(input("☞ enter your choice:"))
+    print("               ＄ WELCOME ＄")
+    print("   ▽▲▽▲▽▲▽ You are in Dragon Bank! ▽▲▽▲▽▲▽")
+    print_horizonal_line()
+    print("► 1 ∙ Create new account")
+    print_horizonal_line()
+    print("► 2 ∙ Make Transaction")
+    print_horizonal_line()
+    print("► 3 ∙ update information of existing account")
+    print_horizonal_line()
+    print("► 4 ∙ removing existing account")
+    print_horizonal_line()
+    print("► 5 ∙ check the details of existing account")
+    print_horizonal_line()
+    print("► 6 ∙ view customer's list")
+    print_horizonal_line()
+    print("► 7 ∙ exit")
+    print_horizonal_line()
+
+    user_choice = int(input("☞ enter your choice: "))
+
+    clean_terminal_screen()
+
     if user_choice == 1:
         user_name = input("Full Name: ")
         balance = float(input("Balance: "))
@@ -203,6 +231,12 @@ def display_menu():
 
     if user_choice == 7:
         quit()
+
+    print()
+    print_horizonal_line()
+    print("PRESS ANYTHING TO CONTINUE")
+    print()
+    read_char()
 
 
 # ─── MAIN ───────────────────────────────────────────────────────────────────────
