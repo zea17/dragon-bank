@@ -2,49 +2,80 @@ from datetime import datetime
 import random
 import json
 
-def get_data ():
-    f = open("bank.json","r")
+
+def get_data():
+    """
+    Reads the bank information from the data file.
+    """
+    f = open("bank.json", "r")
     data = f.read()
     return json.loads(data)
 
 
-def set_data (data):
-    f = open("bank.json","w")
+def set_data(data):
+    """
+    Writes the bank information into the data file
+    """
+    f = open("bank.json", "w")
     f.write(json.dumps(data))
 
-    
 
-def AccountNumber():
+def generate_account_number():
+    """
+    Generates a new unique account number
+    """
     prefix = "17172424"
     result = ""
-    for i in range (0,8):
+    for _ in range(0, 8):
         random_number = random.randint(1, 9)
         result += str(random_number)
-    
+
     return prefix + result
 
 
-def transaction(sender,receiver,amount):
+def perform_transaction(sender_number, receiver_number, amount):
+    """
+    Given two account numbers and a transaction amount, this will move
+    the money from the sender account to the recepient account.
+    """
     users = get_data()
-    if sender in users and receiver in users:
-        if users[sender]["balance"] >= amount:
-            users[sender]["balance"] -= amount
-            users[receiver]["balance"] += amount
+
+    if sender_number in users:
+        print("Did not found the account with number: " + sender_number)
+        return
+
+    if receiver_number in users:
+        print("Did not found the account with number: " + receiver_number)
+        return
+
+    if sender_number in users and receiver_number in users:
+        if users[sender_number]["balance"] >= amount:
+            users[sender_number]["balance"] -= amount
+            users[receiver_number]["balance"] += amount
+
     set_data(users)
 
 
-def create_new_user(user_name,balance,gender):
+def create_new_user(full_name, balance, gender):
+    """
+    Creatas a new user with the given information
+    """
     users = get_data()
     date = datetime.today().strftime('%Y-%m-%d')
-    users[user_name] = {
+    users[generate_account_number()] = {
+        "full_name": full_name,
         "gender": gender,
-        "account_number": AccountNumber(),
         "balance": balance,
         "account_creation_date": date
     }
     set_data(users)
 
+
 def display_menu():
+    """
+    Displays the welcome menu and asks the user for a
+    command to perform (which then performs)
+    """
     print("             ＄ WELCOME ＄")
     print("▽▲▽▲▽▲▽ you are in dragon bank ▽▲▽▲▽▲▽")
     print("⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃")
@@ -65,17 +96,15 @@ def display_menu():
 
     user_choice = int(input("enter your choice:"))
     if user_choice == 1:
-       user_name = input("name: ")
-       balance = float(input("balance: "))
-       gender = input("gender: ")
-       create_new_user(user_name,balance,gender)
+        user_name = input("Full Name: ")
+        balance = float(input("Balance: "))
+        gender = input("Gender: ")
+        create_new_user(user_name, balance, gender)
     if user_choice == 2:
-        sender = input("Sender's name?")
-        receiver = input("Recipient's name")
-        amount = float(input("amount"))
-        transaction(sender,receiver,amount)
-
-display_menu()    
+        sender = input("Sender's Account Number: ")
+        receiver = input("Recipient's Account Number: ")
+        amount = float(input("Transaction Amount: "))
+        perform_transaction(sender, receiver, amount)
 
 
-    
+display_menu()

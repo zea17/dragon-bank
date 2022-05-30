@@ -1,14 +1,1 @@
-{
-    "zea": {
-        "gender": "woman",
-        "account_number": "1717242417171717",
-        "balance": 24.0,
-        "account_creation_date": "2022-05-30"
-    },
-    "pou": {
-        "gender": "man",
-        "account_number": "17172424288888888",
-        "balance": 17.0,
-        "account_creation_date": "2022-05-30"
-    }
-}
+{"1717242496385349": {"account_creation_date": "2022-05-30", "balance": 14.170000000000002, "full_name": "Zea Ak", "gender": "dokhtar"}, "1717242423152369": {"account_creation_date": "2022-05-30", "balance": 11, "full_name": "Pouda K", "gender": "pesar"}}
