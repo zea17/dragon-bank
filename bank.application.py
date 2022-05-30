@@ -6,6 +6,13 @@
 from datetime import datetime
 import random
 import json
+from os.path import exists
+
+
+# ─── CONSTANTS ──────────────────────────────────────────────────────────────────
+
+
+FILE_PATH = "bank.json"
 
 
 # ─── DATABASE ───────────────────────────────────────────────────────────────────
@@ -15,7 +22,9 @@ def get_data():
     """
     Reads the bank information from the data file.
     """
-    f = open("bank.json", "r")
+    if not exists(FILE_PATH):
+        return {}
+    f = open(FILE_PATH, "rw")
     data = f.read()
     return json.loads(data)
 
@@ -24,7 +33,7 @@ def set_data(data):
     """
     Writes the bank information into the data file
     """
-    f = open("bank.json", "w")
+    f = open(FILE_PATH, "w")
     f.write(json.dumps(data))
 
 
