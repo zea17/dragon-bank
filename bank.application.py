@@ -3,12 +3,15 @@
 # ─── IMPORTS ────────────────────────────────────────────────────────────────────
 
 
+from hashlib import new
 import json
 import os
 import random
 import sys
 from datetime import datetime
 from os.path import exists
+
+from setuptools import Command
 
 
 # ─── CONSTANTS ──────────────────────────────────────────────────────────────────
@@ -115,6 +118,23 @@ def perform_transaction(sender_number, receiver_number, amount):
 
     print("Transfered ", amount, "$ from account",
           sender_number, "to", receiver_number)
+
+# ─── update information ──────────────────────────────────────────────────────────
+
+
+def update_information(account_number):
+    users = get_data()
+    print("► 1 ∙ Full Name ")
+    print_horizonal_line
+    print("► 2 ∙ gender ")
+    print_horizonal_line
+    command = int(input("what to change?"))
+    if command == 1:
+        new_name = input("new full name: ")
+        users[account_number]["full_name"] = new_name
+    if command == 2:
+        new_gender = input("new gender: ")
+        users[account_number]["gender"] = new_gender
 
 
 # ─── CREATE A NEW USER ──────────────────────────────────────────────────────────
@@ -231,6 +251,11 @@ def display_menu():
         receiver = input("Recipient's Account Number: ")
         amount = float(input("Transaction Amount: "))
         perform_transaction(sender, receiver, amount)
+
+    if user_choice == 3:
+        print("── Changing Account Information ─────────────")
+        account_number = int(input("Account Number To Change"))
+        update_information(account_number)
 
     if user_choice == 4:
         print("── Deleting an Account ──────────────────────")
