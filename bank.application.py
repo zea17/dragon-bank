@@ -2,6 +2,7 @@
 
 # ─── IMPORTS ────────────────────────────────────────────────────────────────────
 
+
 import json
 import os
 import random
@@ -115,10 +116,15 @@ def perform_transaction(sender_number, receiver_number, amount):
     print("Transfered ", amount, "$ from account",
           sender_number, "to", receiver_number)
 
+
 # ─── update information ──────────────────────────────────────────────────────────
 
 
 def update_information(account_number):
+    """
+    Given an account number, this asks the user what to change and then
+    changes the properties of that.
+    """
     users = get_data()
     print_horizonal_line()
     print("► 1 ∙ Full Name ")
