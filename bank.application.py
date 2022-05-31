@@ -6,7 +6,6 @@
 import json
 import os
 import random
-import sys
 from datetime import datetime
 from os.path import exists
 
@@ -48,16 +47,6 @@ def clean_terminal_screen():
     clear command. Cls on windows and Clear on UNIX ones.
     """
     os.system('cls' if os.name == 'nt' else 'clear')
-
-
-# ─── READ CHARACTER ─────────────────────────────────────────────────────────────
-
-
-def read_char():
-    """
-    Reads only one character form the terminal screen
-    """
-    sys.stdin.read(1)
 
 
 # ─── PRINT LINE ─────────────────────────────────────────────────────────────────
@@ -129,22 +118,32 @@ def update_information(account_number):
     print_horizonal_line()
     print("► 1 ∙ Full Name ")
     print_horizonal_line()
-    print("► 2 ∙ gender ")
+    print("► 2 ∙ Gender ")
     print_horizonal_line()
-    command = int(input("what to change? "))
+    print("► 3 ∙ City ")
+    print_horizonal_line()
+    print("► 4 ∙ Phone Number ")
+    print_horizonal_line()
+    command = int(input("What to change? "))
     if command == 1:
-        new_name = input("new full name: ")
+        new_name = input("New Full Name: ")
         users[account_number]["full_name"] = new_name
     if command == 2:
-        new_gender = input("new gender: ")
+        new_gender = input("New Gender: ")
         users[account_number]["gender"] = new_gender
+    if command == 3:
+        new_city = input("New City: ")
+        users[account_number]["city"] = new_city
+    if command == 4:
+        new_phone_number = input("New Phone Number: ")
+        users[account_number]["phone_number"] = new_phone_number
     set_data(users)
 
 
 # ─── CREATE A NEW USER ──────────────────────────────────────────────────────────
 
 
-def create_new_user(full_name, balance, gender):
+def create_new_user(full_name, balance, gender, city, phone_number):
     """
     Creatas a new user with the given information
     """
@@ -155,7 +154,9 @@ def create_new_user(full_name, balance, gender):
         "full_name": full_name,
         "gender": gender,
         "balance": balance,
-        "account_creation_date": date
+        "account_creation_date": date,
+        "city": city,
+        "phone_number": phone_number
     }
     set_data(users)
     display_account_information_by_given_account_number(account_number)
@@ -189,9 +190,11 @@ def display_account_information_by_given_account_number(account_number):
     print_horizonal_line()
     print("Full name:      ", user["full_name"])
     print("Account number: ", account_number)
-    print("Gender:         ", user["gender"])
+    print("Created at:     ", user["account_creation_date"])
     print("Balance:        ", user["balance"])
-    print("date:           ", user["account_creation_date"])
+    print("Gender:         ", user["gender"])
+    print("City:           ", user["city"])
+    print("Phone:          ", user["phone_number"])
 
 
 # ─── DISPLAY ALL OF THE CUSTOMERS ───────────────────────────────────────────────
@@ -247,7 +250,9 @@ def display_menu():
         user_name = input("Full Name: ")
         balance = float(input("Balance: "))
         gender = input("Gender: ")
-        create_new_user(user_name, balance, gender)
+        city = input("City of Residence: ")
+        phone_number = input("Phone Number: ")
+        create_new_user(user_name, balance, gender, city, phone_number)
 
     if user_choice == 2:
         print("── Requesting Transaction ───────────────────")
@@ -281,9 +286,8 @@ def display_menu():
 
     print()
     print_horizonal_line()
-    print("PRESS ENTER TO CONTINUE")
+    input("PRESS ENTER TO CONTINUE ")
     print()
-    read_char()
 
 
 # ─── MAIN ───────────────────────────────────────────────────────────────────────
