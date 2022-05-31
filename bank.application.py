@@ -125,6 +125,7 @@ def update_information(account_number):
     print("► 4 ∙ Phone Number ")
     print_horizonal_line()
     command = int(input("What to change? "))
+    print_horizonal_line()
     if command == 1:
         new_name = input("New Full Name: ")
         users[account_number]["full_name"] = new_name
@@ -137,7 +138,10 @@ def update_information(account_number):
     if command == 4:
         new_phone_number = input("New Phone Number: ")
         users[account_number]["phone_number"] = new_phone_number
+
     set_data(users)
+    clean_terminal_screen()
+    display_account_information_by_given_account_number(account_number)
 
 
 # ─── CREATE A NEW USER ──────────────────────────────────────────────────────────
