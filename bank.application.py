@@ -2,16 +2,12 @@
 
 # ─── IMPORTS ────────────────────────────────────────────────────────────────────
 
-
-from hashlib import new
 import json
 import os
 import random
 import sys
 from datetime import datetime
 from os.path import exists
-
-from setuptools import Command
 
 
 # ─── CONSTANTS ──────────────────────────────────────────────────────────────────
