@@ -84,14 +84,14 @@ def sift_down(input_list, field, start_index, end_index):
 # ─── BINARY SEARCH ──────────────────────────────────────────────────────────────
 
 
-def binary_search(input_list, query):
+def binary_search(input_list, field, query):
     low = 0
     high = len(input_list) - 1
     while low <= high:
         mid = math.floor((low + high) / 2)
-        if input_list[mid] > query:
+        if input_list[mid][field] > query:
             high = mid - 1
-        elif input_list[mid] < query:
+        elif input_list[mid][field] < query:
             low = mid + 1
         else:
             return mid
@@ -204,6 +204,19 @@ def create_new_user(full_name, balance, gender, city, phone_number):
     set_data(users)
     display_account_information_by_given_account_number(account_number)
 
+# ─── SEARCH ACCOUNT ─────────────────────────────────────────────────────────────
+
+
+def search_account(field, query):
+    users = get_users_as_list()
+    users = heap_sort(users, field)
+    index = binary_search(users, field, query)
+    if index == -1:
+        print("not found")
+    else:
+        user = users[index]
+        display_user_object(user, user["account_number"])
+
 
 # ─── DELETE AN ACCOUNT ──────────────────────────────────────────────────────────
 
@@ -272,8 +285,7 @@ def display_all_accounts_sorted_by(field):
 
 # ─── DISPLAY USER DATA MENU ─────────────────────────────────────────────────────
 
-def ask_user_what_field_to_sort_the_display_by():
-    print("Sorting by:")
+def ask_for_field_name():
     print_horizonal_line()
     print("► 1 ∙ Full Name ")
     print_horizonal_line()
@@ -303,6 +315,11 @@ def ask_user_what_field_to_sort_the_display_by():
     return "full_name"
 
 
+def ask_user_what_field_to_sort_the_display_by():
+    print("Sorting by:")
+    return ask_for_field_name()
+
+
 # ─── DISPLAY MENU ───────────────────────────────────────────────────────────────
 
 
@@ -327,7 +344,7 @@ def display_menu():
     print_horizonal_line()
     print("► 4 ∙ Removing Existing Account")
     print_horizonal_line()
-    print("► 5 ∙ Check The Details of Existing Account")
+    print("► 5 ∙ Search Account")
     print_horizonal_line()
     print("► 6 ∙ View Customer's List")
     print_horizonal_line()
@@ -365,9 +382,15 @@ def display_menu():
         delete_account(account_number)
 
     if user_choice == 5:
-        print("── Looking up Account Information ───────────")
-        account_number = input("Account number: ")
-        display_account_information_by_given_account_number(account_number)
+        print("── Search Account ───────────────────────────")
+        print_horizonal_line()
+        print("What field you are searching?")
+        search_by_field = ask_for_field_name()
+        clean_terminal_screen()
+        print_horizonal_line()
+        query = input("Query: ")
+        clean_terminal_screen()
+        search_account(search_by_field, query)
 
     if user_choice == 6:
         print("── Displaying all Accounts ──────────────────")
