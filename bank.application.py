@@ -2,7 +2,7 @@
 
 # ─── IMPORTS ────────────────────────────────────────────────────────────────────
 
-
+import math
 import json
 import os
 import random
@@ -38,25 +38,14 @@ def set_data(data):
     f.write(json.dumps(data))
 
 
-# ─── TERMINAL CLEAN SCREEN ──────────────────────────────────────────────────────
-
-
-def clean_terminal_screen():
-    """
-    Cleans the terminal screen by performing a system
-    clear command. Cls on windows and Clear on UNIX ones.
-    """
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-# ─── PRINT LINE ─────────────────────────────────────────────────────────────────
-
-
-def print_horizonal_line():
-    """
-    A pretty decorative horoizontal line.
-    """
-    print("─────────────────────────────────────────────")
+def getUsersAsList():
+    result = []
+    users = get_data()
+    for user_account_number in users:
+        user_data = users[user_account_number]
+        user_data["account_number"] = user_account_number
+        result.append(user_data)
+    return result
 
 
 # ─── ACCONUT NUMBER ─────────────────────────────────────────────────────────────
@@ -182,7 +171,25 @@ def delete_account(account_number):
     print("Account number", account_number, "removed.")
 
 
-# ─── DISPLAY INFORMATION OF A GIVEN ACCOUNT NUMBER ──────────────────────────────
+# ─── INTERFACE TOOLS ────────────────────────────────────────────────────────────
+
+
+def clean_terminal_screen():
+    """
+    Cleans the terminal screen by performing a system
+    clear command. Cls on windows and Clear on UNIX ones.
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def print_horizonal_line():
+    """
+    A pretty decorative horoizontal line.
+    """
+    print("─────────────────────────────────────────────")
+
+
+# ─── DISPLAY USER OBJECT ────────────────────────────────────────────────────────
 
 
 def display_account_information_by_given_account_number(account_number):
@@ -191,17 +198,18 @@ def display_account_information_by_given_account_number(account_number):
     """
     users = get_data()
     user = users[account_number]
+    display_user_object(user, account_number)
+
+
+def display_user_object(user_object, account_number):
     print_horizonal_line()
-    print("Full name:      ", user["full_name"])
+    print("Full name:      ", user_object["full_name"])
     print("Account number: ", account_number)
-    print("Created at:     ", user["account_creation_date"])
-    print("Balance:        ", user["balance"])
-    print("Gender:         ", user["gender"])
-    print("City:           ", user["city"])
-    print("Phone:          ", user["phone_number"])
-
-
-# ─── DISPLAY ALL OF THE CUSTOMERS ───────────────────────────────────────────────
+    print("Created at:     ", user_object["account_creation_date"])
+    print("Balance:        ", user_object["balance"])
+    print("Gender:         ", user_object["gender"])
+    print("City:           ", user_object["city"])
+    print("Phone:          ", user_object["phone_number"])
 
 
 def display_all_of_the_customers():
@@ -297,8 +305,9 @@ def display_menu():
 # ─── MAIN ───────────────────────────────────────────────────────────────────────
 
 
-while True:
-    display_menu()
+# while True:
+    # display_menu()
 
 
 # ────────────────────────────────────────────────────────────────────────────────
+pouda("Pouda Kary")
