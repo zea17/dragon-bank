@@ -51,15 +51,15 @@ def getUsersAsList():
 # ─── HEAP SORT ──────────────────────────────────────────────────────────────────
 
 
-def heap_sort(input_list):
+def heap_sort(input_list, field):
     range_start = int((len(input_list)-2)/2)
     for start in range(range_start, -1, -1):
-        sift_down(input_list, start, len(input_list)-1)
+        sift_down(input_list, field, start, len(input_list)-1)
 
     range_start = int(len(input_list)-1)
     for end_index in range(range_start, 0, -1):
         swap(input_list, end_index, 0)
-        sift_down(input_list, 0, end_index - 1)
+        sift_down(input_list, field, 0, end_index - 1)
     return input_list
 
 
@@ -67,15 +67,15 @@ def swap(input_list, a, b):
     input_list[a], input_list[b] = input_list[b], input_list[a]
 
 
-def sift_down(input_list, start_index, end_index):
+def sift_down(input_list, field, start_index, end_index):
     root_index = start_index
     while True:
         child = root_index * 2 + 1
         if child > end_index:
             break
-        if child + 1 <= end_index and input_list[child] < input_list[child + 1]:
+        if child + 1 <= end_index and input_list[child][field] < input_list[child + 1][field]:
             child += 1
-        if input_list[root_index] < input_list[child]:
+        if input_list[root_index][field] < input_list[child][field]:
             swap(input_list, child, root_index)
             root_index = child
         else:
@@ -357,6 +357,5 @@ def display_menu():
 
 while True:
     display_menu()
-
 
 # ────────────────────────────────────────────────────────────────────────────────
