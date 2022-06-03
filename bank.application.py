@@ -38,7 +38,7 @@ def set_data(data):
     f.write(json.dumps(data))
 
 
-def getUsersAsList():
+def get_users_as_list():
     result = []
     users = get_data()
     for user_account_number in users:
@@ -262,14 +262,45 @@ def display_user_object(user_object, account_number):
     print("Phone:          ", user_object["phone_number"])
 
 
-def display_all_of_the_customers():
-    """
-    Lists all of the users and their information
-    one after the other.
-    """
-    users = get_data()
-    for account_number in users:
-        display_account_information_by_given_account_number(account_number)
+def display_all_accounts_sorted_by(field):
+    users = get_users_as_list()
+    users = heap_sort(users, field)
+    clean_terminal_screen()
+    for user in users:
+        display_user_object(user, user["account_number"])
+
+
+# ─── DISPLAY USER DATA MENU ─────────────────────────────────────────────────────
+
+def ask_user_what_field_to_sort_the_display_by():
+    print("Sorting by:")
+    print_horizonal_line()
+    print("► 1 ∙ Full Name ")
+    print_horizonal_line()
+    print("► 2 ∙ Gender ")
+    print_horizonal_line()
+    print("► 3 ∙ City ")
+    print_horizonal_line()
+    print("► 4 ∙ Phone Number ")
+    print_horizonal_line()
+    print("► 5 ∙ Account Creating Date ")
+    print_horizonal_line()
+    print("► 6 ∙ Account Number ")
+    print()
+    command = input("Your option: ")
+    if command == "1":
+        return "full_name"
+    if command == "2":
+        return "gender"
+    if command == "3":
+        return "city"
+    if command == "4":
+        return "phone_number"
+    if command == "5":
+        return "account_creation_date"
+    if command == "6":
+        return "account_number"
+    return "full_name"
 
 
 # ─── DISPLAY MENU ───────────────────────────────────────────────────────────────
@@ -339,9 +370,9 @@ def display_menu():
         display_account_information_by_given_account_number(account_number)
 
     if user_choice == 6:
-        print_horizonal_line()
-        print("USERS OF THE DRAGON BANK")
-        display_all_of_the_customers()
+        print("── Displaying all Accounts ──────────────────")
+        field = ask_user_what_field_to_sort_the_display_by()
+        display_all_accounts_sorted_by(field)
 
     if user_choice == 7:
         quit()
