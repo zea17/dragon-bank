@@ -212,7 +212,8 @@ def search_account(field, query):
     users = heap_sort(users, field)
     index = binary_search(users, field, query)
     if index == -1:
-        print("not found")
+        print("──── Error ──────────────────────────────────")
+        print("Found no one as", query)
     else:
         user = users[index]
         display_user_object(user, user["account_number"])
@@ -383,14 +384,9 @@ def display_menu():
 
     if user_choice == 5:
         print("── Search Account ───────────────────────────")
-        print_horizonal_line()
-        print("What field you are searching?")
-        search_by_field = ask_for_field_name()
+        query = input("Searching for: ")
         clean_terminal_screen()
-        print_horizonal_line()
-        query = input("Query: ")
-        clean_terminal_screen()
-        search_account(search_by_field, query)
+        search_account("full_name", query)
 
     if user_choice == 6:
         print("── Displaying all Accounts ──────────────────")
@@ -411,5 +407,6 @@ def display_menu():
 
 while True:
     display_menu()
+
 
 # ────────────────────────────────────────────────────────────────────────────────
