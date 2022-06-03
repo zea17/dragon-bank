@@ -81,6 +81,22 @@ def sift_down(input_list, start_index, end_index):
         else:
             break
 
+# ─── BINARY SEARCH ──────────────────────────────────────────────────────────────
+
+
+def binary_search(input_list, query):
+    low = 0
+    high = len(input_list) - 1
+    while low <= high:
+        mid = math.floor((low + high) / 2)
+        if input_list[mid] > query:
+            high = mid - 1
+        elif input_list[mid] < query:
+            low = mid + 1
+        else:
+            return mid
+    return -1
+
 
 # ─── ACCONUT NUMBER ─────────────────────────────────────────────────────────────
 
