@@ -101,6 +101,7 @@ def sift_down(input_list, field, start_index, end_index):
         else:
             break
 
+
 # ─── BINARY SEARCH ──────────────────────────────────────────────────────────────
 
 
@@ -240,6 +241,7 @@ def create_new_user(full_name, balance, gender, city, phone_number):
     set_data(users)
     display_account_information_by_given_account_number(account_number)
 
+
 # ─── SEARCH ACCOUNT ─────────────────────────────────────────────────────────────
 
 
@@ -334,6 +336,7 @@ def display_all_accounts_sorted_by(field):
 
 
 # ─── DISPLAY USER DATA MENU ─────────────────────────────────────────────────────
+
 
 def ask_user_what_field_to_sort_the_display_by():
     """
