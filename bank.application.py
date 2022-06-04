@@ -71,6 +71,12 @@ class LinkedList:
             else:
                 return self.next.index(n - 1)
 
+    def size(self):
+        if self.next == None:
+            return 1
+        else:
+            return 1 + self.next.size()
+
 
 # ─── HEAP SORT ──────────────────────────────────────────────────────────────────
 
