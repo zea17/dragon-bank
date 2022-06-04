@@ -39,6 +39,12 @@ def set_data(data):
 
 
 def get_users_as_list():
+    """
+    This functions loadst the user data and converts it
+    from a dictionary to a list and then appends the
+    account_number as a key from outside into the the
+    data object.
+    """
     result = []
     users = get_data()
     for user_account_number in users:
@@ -52,6 +58,13 @@ def get_users_as_list():
 
 
 def heap_sort(input_list, field):
+    """
+    A custom implementation of the heap sort function that
+    also gets a field and then assuems the input_list contains
+    data objects. So it sorts based on a common key on all those
+    functions. This makes possible to sort users based on different
+    aspects, like based on full name or phone number
+    """
     range_start = int((len(input_list)-2)/2)
     for start in range(range_start, -1, -1):
         sift_down(input_list, field, start, len(input_list)-1)
@@ -64,10 +77,17 @@ def heap_sort(input_list, field):
 
 
 def swap(input_list, a, b):
+    """
+    Swaps two elements of a list with the python shorthand
+    """
     input_list[a], input_list[b] = input_list[b], input_list[a]
 
 
 def sift_down(input_list, field, start_index, end_index):
+    """
+    The "Stif Down" function of the heap sort algorithm,
+    customized to also include object fields.
+    """
     root_index = start_index
     while True:
         child = root_index * 2 + 1
@@ -84,7 +104,15 @@ def sift_down(input_list, field, start_index, end_index):
 # ─── BINARY SEARCH ──────────────────────────────────────────────────────────────
 
 
-def binary_search(input_list, field, query):
+def text_binary_search(input_list, field, query):
+    """
+    A custom binary search implementation that:
+    (1) Assumes the input_list to have elements of type object
+        and then sorts by a common key in all those abjects name
+        "field"
+    (2) Lowercases and trims the text in the fields
+        so for example "foo bar" can match "FooBar"
+    """
     low = 0
     high = len(input_list) - 1
     while low <= high:
@@ -99,6 +127,9 @@ def binary_search(input_list, field, query):
 
 
 def make_text_searchable(text):
+    """
+    Lowercases the text and removes spaces
+    """
     return text.lower().replace(" ", "")
 
 
@@ -212,9 +243,12 @@ def create_new_user(full_name, balance, gender, city, phone_number):
 
 
 def search_account(field, query):
+    """
+    Searches the "query" from the user data in the "field" fields
+    """
     users = get_users_as_list()
     users = heap_sort(users, field)
-    index = binary_search(users, field, query)
+    index = text_binary_search(users, field, query)
     if index == -1:
         print("──── Error ──────────────────────────────────")
         print("Found no one as", query)
@@ -270,6 +304,13 @@ def display_account_information_by_given_account_number(account_number):
 
 
 def display_user_object(user_object, account_number):
+    """
+    Displays a single user object. The account_number is taken
+    separately since there can be either a list input or a dictiory
+    input. In a list input the account_number is within the user object
+    and in the dictionary form the account_number is the key mapped
+    to the dictionary
+    """
     print_horizonal_line()
     print("Full name:      ", user_object["full_name"])
     print("Account number: ", account_number)
@@ -281,6 +322,9 @@ def display_user_object(user_object, account_number):
 
 
 def display_all_accounts_sorted_by(field):
+    """
+    Displays all the users one after the other, sorted by a given field
+    """
     users = get_users_as_list()
     users = heap_sort(users, field)
     clean_terminal_screen()
@@ -290,7 +334,11 @@ def display_all_accounts_sorted_by(field):
 
 # ─── DISPLAY USER DATA MENU ─────────────────────────────────────────────────────
 
-def ask_for_field_name():
+def ask_user_what_field_to_sort_the_display_by():
+    """
+    Shows a menu so that the user cas pick a field to sort the data by.
+    """
+    print("Sorting by:")
     print_horizonal_line()
     print("► 1 ∙ Full Name ")
     print_horizonal_line()
@@ -318,11 +366,6 @@ def ask_for_field_name():
     if command == "6":
         return "account_number"
     return "full_name"
-
-
-def ask_user_what_field_to_sort_the_display_by():
-    print("Sorting by:")
-    return ask_for_field_name()
 
 
 # ─── DISPLAY MENU ───────────────────────────────────────────────────────────────
