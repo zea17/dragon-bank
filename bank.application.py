@@ -327,7 +327,7 @@ def search_account(field, query):
         print("──── Error ──────────────────────────────────")
         print("Found no one as", query)
     else:
-        user = users[index]
+        user = users.index(index)
         display_user_object(user, user["account_number"])
 
 
