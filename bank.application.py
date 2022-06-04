@@ -54,6 +54,15 @@ def get_users_as_list():
     return result
 
 
+# ─── LINKED LIST ────────────────────────────────────────────────────────────────
+
+
+class LinkedList:
+    def __init__(self, _value, _next):
+        self.value = _value
+        self.next = _next
+
+
 # ─── HEAP SORT ──────────────────────────────────────────────────────────────────
 
 
