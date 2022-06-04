@@ -51,7 +51,8 @@ def get_users_as_list():
         user_data = users[user_account_number]
         user_data["account_number"] = user_account_number
         result.append(user_data)
-    return result
+    results_as_ll = list_to_linked_list(result)
+    return results_as_ll
 
 
 # ─── LINKED LIST ────────────────────────────────────────────────────────────────
@@ -70,17 +71,26 @@ class LinkedList:
         self.value = _value
         self.next = _next
 
-    def index(self, n):
+    def index(self, index):
         """
         Similar to A[i], this works as A.index(i)
         """
-        if n == 0:
+        if index == 0:
             return self.value
         else:
             if self.next == None:
                 return None
             else:
-                return self.next.index(n - 1)
+                return self.next.index(index - 1)
+
+    def set_index(self, index, value):
+        """
+        Similar to A[i] = value, this is A.set_index(i, value)
+        """
+        if index == 0:
+            self.value = value
+        else:
+            self.next.set_index(index - 1, value)
 
     def size(self):
         """
@@ -123,11 +133,11 @@ def heap_sort(input_list, field):
     functions. This makes possible to sort users based on different
     aspects, like based on full name or phone number
     """
-    range_start = int((len(input_list)-2)/2)
+    range_start = int((input_list.size()-2)/2)
     for start in range(range_start, -1, -1):
-        sift_down(input_list, field, start, len(input_list)-1)
+        sift_down(input_list, field, start, input_list.size()-1)
 
-    range_start = int(len(input_list)-1)
+    range_start = int(input_list.size()-1)
     for end_index in range(range_start, 0, -1):
         swap(input_list, end_index, 0)
         sift_down(input_list, field, 0, end_index - 1)
@@ -138,7 +148,10 @@ def swap(input_list, a, b):
     """
     Swaps two elements of a list with the python shorthand
     """
-    input_list[a], input_list[b] = input_list[b], input_list[a]
+    a_value = input_list.index(a)
+    b_value = input_list.index(b)
+    input_list.set_index(a, b_value)
+    input_list.set_index(b, a_value)
 
 
 def sift_down(input_list, field, start_index, end_index):
@@ -151,9 +164,9 @@ def sift_down(input_list, field, start_index, end_index):
         child = root_index * 2 + 1
         if child > end_index:
             break
-        if child + 1 <= end_index and input_list[child][field] < input_list[child + 1][field]:
+        if child + 1 <= end_index and input_list.index(child)[field] < input_list.index(child + 1)[field]:
             child += 1
-        if input_list[root_index][field] < input_list[child][field]:
+        if input_list.index(root_index)[field] < input_list.index(child)[field]:
             swap(input_list, child, root_index)
             root_index = child
         else:
@@ -173,13 +186,13 @@ def text_binary_search(input_list, field, query):
         so for example "foo bar" can match "FooBar"
     """
     low = 0
-    high = len(input_list) - 1
+    high = input_list.size() - 1
     query = make_text_searchable(query)
     while low <= high:
         mid = math.floor((low + high) / 2)
-        if make_text_searchable(input_list[mid][field]) > query:
+        if make_text_searchable(input_list.index(mid)[field]) > query:
             high = mid - 1
-        elif make_text_searchable(input_list[mid][field]) < query:
+        elif make_text_searchable(input_list.index(mid)[field]) < query:
             low = mid + 1
         else:
             return mid
@@ -389,7 +402,8 @@ def display_all_accounts_sorted_by(field):
     users = get_users_as_list()
     users = heap_sort(users, field)
     clean_terminal_screen()
-    for user in users:
+    for i in range(0, users.size()):
+        user = users.index(i)
         display_user_object(user, user["account_number"])
 
 
