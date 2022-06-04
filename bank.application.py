@@ -115,11 +115,12 @@ def text_binary_search(input_list, field, query):
     """
     low = 0
     high = len(input_list) - 1
+    query = make_text_searchable(query)
     while low <= high:
         mid = math.floor((low + high) / 2)
-        if make_text_searchable(input_list[mid][field]) > make_text_searchable(query):
+        if make_text_searchable(input_list[mid][field]) > query:
             high = mid - 1
-        elif make_text_searchable(input_list[mid][field]) < make_text_searchable(query):
+        elif make_text_searchable(input_list[mid][field]) < query:
             low = mid + 1
         else:
             return mid
