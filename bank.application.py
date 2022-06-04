@@ -58,11 +58,22 @@ def get_users_as_list():
 
 
 class LinkedList:
+    """
+    A Linked List Node
+    """
+
     def __init__(self, _value, _next):
+        """
+        Creates the node with a value and reference to
+        the next object
+        """
         self.value = _value
         self.next = _next
 
     def index(self, n):
+        """
+        Similar to A[i], this works as A.index(i)
+        """
         if n == 0:
             return self.value
         else:
@@ -72,6 +83,9 @@ class LinkedList:
                 return self.next.index(n - 1)
 
     def size(self):
+        """
+        Similar to len(A), this is A.size()
+        """
         if self.next == None:
             return 1
         else:
