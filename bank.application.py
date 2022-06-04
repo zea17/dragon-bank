@@ -62,6 +62,15 @@ class LinkedList:
         self.value = _value
         self.next = _next
 
+    def index(self, n):
+        if n == 0:
+            return self.value
+        else:
+            if self.next == None:
+                return None
+            else:
+                return self.next.index(n - 1)
+
 
 # ─── HEAP SORT ──────────────────────────────────────────────────────────────────
 
