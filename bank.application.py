@@ -92,6 +92,17 @@ class LinkedList:
             return 1 + self.next.size()
 
 
+def list_to_linked_list(arr):
+    """
+    Converts a Python List to a LinkedList
+    """
+    n = None
+    for i in range(len(arr) - 1, -1, -1):
+        node = LinkedList(arr[i], n)
+        n = node
+    return n
+
+
 # ─── HEAP SORT ──────────────────────────────────────────────────────────────────
 
 
