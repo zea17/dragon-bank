@@ -91,6 +91,15 @@ class LinkedList:
         else:
             return 1 + self.next.size()
 
+    def append(self, x):
+        """
+        Appends a new node to the end of nodes
+        """
+        if self.next == None:
+            self.next = LinkedList(x, None)
+        else:
+            self.next.append(x)
+
 
 def list_to_linked_list(arr):
     """
