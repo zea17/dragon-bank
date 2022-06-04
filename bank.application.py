@@ -89,13 +89,17 @@ def binary_search(input_list, field, query):
     high = len(input_list) - 1
     while low <= high:
         mid = math.floor((low + high) / 2)
-        if input_list[mid][field] > query:
+        if make_text_searchable(input_list[mid][field]) > make_text_searchable(query):
             high = mid - 1
-        elif input_list[mid][field] < query:
+        elif make_text_searchable(input_list[mid][field]) < make_text_searchable(query):
             low = mid + 1
         else:
             return mid
     return -1
+
+
+def make_text_searchable(text):
+    return text.lower().replace(" ", "")
 
 
 # ─── ACCONUT NUMBER ─────────────────────────────────────────────────────────────
