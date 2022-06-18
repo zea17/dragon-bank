@@ -23,10 +23,12 @@ def get_data():
     """
     Reads the bank information from the data file.
     """
+    # assume none existent file as empty file
     if not exists(FILE_PATH):
         return {}
     f = open(FILE_PATH, "r")
     data = f.read()
+    # convert string json to python object
     return json.loads(data)
 
 
@@ -35,7 +37,8 @@ def set_data(data):
     Writes the bank information into the data file
     """
     f = open(FILE_PATH, "w")
-    f.write(json.dumps(data))
+    json_data = json.dumps(data)
+    f.write(json_data)
 
 
 def get_users_as_list():
@@ -234,11 +237,11 @@ def perform_transaction(sender_number, receiver_number, amount):
     """
     users = get_data()
 
-    if sender_number in users:
+    if sender_number not in users:
         print("Did not found the account with number: " + sender_number)
         return
 
-    if receiver_number in users:
+    if receiver_number not in users:
         print("Did not found the account with number: " + receiver_number)
         return
 
