@@ -412,7 +412,18 @@ def display_all_accounts_sorted_by(field):
         display_user_object(user, user["account_number"])
 
 
-# ─── DISPLAY USER DATA MENU ─────────────────────────────────────────────────────
+def beatify_field_name(field):
+    if field == "full_name":
+        return "Full Name"
+    if field == "account_creation_date":
+        return "Account Creation Data"
+    if field == "city":
+        return "City"
+    if field == "gender":
+        return "Gender"
+    if field == "phone_number":
+        return "Phone Number"
+    return "Unkown"
 
 
 def ask_user_what_field_to_sort_the_display_by():
@@ -450,7 +461,6 @@ def ask_user_what_field_to_sort_the_display_by():
 
 
 # ─── DISPLAY MENU ───────────────────────────────────────────────────────────────
-
 
 def display_menu():
     """
@@ -520,6 +530,8 @@ def display_menu():
         print("── Displaying all Accounts ──────────────────")
         field = ask_user_what_field_to_sort_the_display_by()
         display_all_accounts_sorted_by(field)
+
+        print("\n\nSorted by user", beatify_field_name(field))
 
     if user_choice == 7:
         quit()
