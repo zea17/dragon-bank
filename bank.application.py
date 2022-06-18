@@ -495,7 +495,7 @@ def display_menu():
 
     if user_choice == 2:
         print("── Requesting Transaction ───────────────────")
-        sender = input("Sender's Account Number:   ")
+        sender = input("Sender's Account Number:    ")
         receiver = input("Recipient's Account Number: ")
         amount = float(input("Transaction Amount: "))
         perform_transaction(sender, receiver, amount)
