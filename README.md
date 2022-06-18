@@ -22,5 +22,5 @@ so you don't need to install anything. Just use a Python 3 interpreter and run t
 - Ali Aziminia
 - Mohammad Hossein Azimi
 - Fateme Zahra Marandi
-- Mobina Mohammadi
+- Mina Mohammadi
 - Danial Kafash Tehrani
