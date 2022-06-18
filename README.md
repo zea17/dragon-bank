@@ -20,7 +20,7 @@ so you don't need to install anything. Just use a Python 3 interpreter and run t
 ## Team
 - Zeynab Akbari
 - Ali Azimi
-- Mohammad Hossein Azimi
+- Mohammad Hossein Aziminia
 - Fateme Zahra Marandi
 - Mobina Mohammadi
 - Danial Kafash Tehrani
