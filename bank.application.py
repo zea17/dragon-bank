@@ -245,10 +245,12 @@ def perform_transaction(sender_number, receiver_number, amount):
         print("Did not found the account with number: " + receiver_number)
         return
 
-    if sender_number in users and receiver_number in users:
-        if users[sender_number]["balance"] >= amount:
-            users[sender_number]["balance"] -= amount
-            users[receiver_number]["balance"] += amount
+    if users[sender_number]["balance"] < amount:
+        print("your account balance is not enough")
+        return
+
+    users[sender_number]["balance"] -= amount
+    users[receiver_number]["balance"] += amount
 
     set_data(users)
 
