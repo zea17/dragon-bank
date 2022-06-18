@@ -43,7 +43,7 @@ def set_data(data):
 
 def get_users_as_list():
     """
-    This functions loadst the user data and converts it
+    This functions loads the user data and converts it
     from a dictionary to a list and then appends the
     account_number as a key from outside into the the
     data object.
@@ -131,7 +131,7 @@ def list_to_linked_list(arr):
 def heap_sort(input_list, field):
     """
     A custom implementation of the heap sort function that
-    also gets a field and then assuems the input_list contains
+    also gets a field and then assumes the input_list contains
     data objects. So it sorts based on a common key on all those
     functions. This makes possible to sort users based on different
     aspects, like based on full name or phone number
@@ -159,7 +159,7 @@ def swap(input_list, a, b):
 
 def sift_down(input_list, field, start_index, end_index):
     """
-    The "Stif Down" function of the heap sort algorithm,
+    The "Sift Down" function of the heap sort algorithm,
     customized to also include object fields.
     """
     root_index = start_index
@@ -183,9 +183,9 @@ def text_binary_search(input_list, field, query):
     """
     A custom binary search implementation that:
     (1) Assumes the input_list to have elements of type object
-        and then sorts by a common key in all those abjects name
+        and then sorts by a common key in all those objects name
         "field"
-    (2) Lowercases and trims the text in the fields
+    (2) Make the text lowercase and trims the text in the fields
         so for example "foo bar" can match "FooBar"
     """
     low = 0
@@ -204,12 +204,12 @@ def text_binary_search(input_list, field, query):
 
 def make_text_searchable(text):
     """
-    Lowercases the text and removes spaces
+    Make the text lowercase the text and removes spaces
     """
     return text.lower().replace(" ", "")
 
 
-# ─── ACCONUT NUMBER ─────────────────────────────────────────────────────────────
+# ─── ACCOUNT NUMBER ─────────────────────────────────────────────────────────────
 
 
 def generate_account_number():
@@ -233,7 +233,7 @@ def generate_account_number():
 def perform_transaction(sender_number, receiver_number, amount):
     """
     Given two account numbers and a transaction amount, this will move
-    the money from the sender account to the recepient account.
+    the money from the sender account to the recipient account.
     """
     users = get_data()
 
@@ -254,7 +254,7 @@ def perform_transaction(sender_number, receiver_number, amount):
 
     set_data(users)
 
-    print("Transfered ", amount, "$ from account",
+    print("Transferred ", amount, "$ from account",
           users[sender_number]["full_name"], "to", users[receiver_number]["full_name"])
 
 
@@ -267,17 +267,17 @@ def update_information(account_number):
     changes the properties of that.
     """
     users = get_data()
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 1 ∙ Full Name ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 2 ∙ Gender ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 3 ∙ City ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 4 ∙ Phone Number ")
-    print_horizonal_line()
+    print_horizontal_line()
     command = int(input("What to change? "))
-    print_horizonal_line()
+    print_horizontal_line()
     if command == 1:
         new_name = input("New Full Name: ")
         users[account_number]["full_name"] = new_name
@@ -301,7 +301,7 @@ def update_information(account_number):
 
 def create_new_user(full_name, balance, gender, city, phone_number):
     """
-    Creatas a new user with the given information
+    Creates a new user with the given information
     """
     users = get_data()
     date = datetime.today().strftime('%Y-%m-%d')
@@ -363,9 +363,9 @@ def clean_terminal_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def print_horizonal_line():
+def print_horizontal_line():
     """
-    A pretty decorative horoizontal line.
+    A pretty decorative horizontal line.
     """
     print("─────────────────────────────────────────────")
 
@@ -375,7 +375,7 @@ def print_horizonal_line():
 
 def display_account_information_by_given_account_number(account_number):
     """
-    Diplays the information about a given account number
+    Displays the information about a given account number
     """
     users = get_data()
     user = users[account_number]
@@ -385,12 +385,12 @@ def display_account_information_by_given_account_number(account_number):
 def display_user_object(user_object, account_number):
     """
     Displays a single user object. The account_number is taken
-    separately since there can be either a list input or a dictiory
+    separately since there can be either a list input or a dictionary
     input. In a list input the account_number is within the user object
     and in the dictionary form the account_number is the key mapped
     to the dictionary
     """
-    print_horizonal_line()
+    print_horizontal_line()
     print("Full name:      ", user_object["full_name"])
     print("Account number: ", account_number)
     print("Created at:     ", user_object["account_creation_date"])
@@ -423,7 +423,7 @@ def beatify_field_name(field):
         return "Gender"
     if field == "phone_number":
         return "Phone Number"
-    return "Unkown"
+    return "Unknown"
 
 
 def ask_user_what_field_to_sort_the_display_by():
@@ -431,17 +431,17 @@ def ask_user_what_field_to_sort_the_display_by():
     Shows a menu so that the user cas pick a field to sort the data by.
     """
     print("Sorting by:")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 1 ∙ Full Name ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 2 ∙ Gender ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 3 ∙ City ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 4 ∙ Phone Number ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 5 ∙ Account Creating Date ")
-    print_horizonal_line()
+    print_horizontal_line()
     print("► 6 ∙ Account Number ")
     print()
     command = input("Your option: ")
@@ -467,7 +467,7 @@ def display_menu():
     Displays the welcome menu and asks the user for a
     command to perform (which then performs).
 
-    This also acts as the UI and recieves the information
+    This also acts as the UI and receives the information
     regarding of the respective functions.
     """
     clean_terminal_screen()
@@ -537,7 +537,7 @@ def display_menu():
         quit()
 
     print()
-    print_horizonal_line()
+    print_horizontal_line()
     input("PRESS ENTER TO CONTINUE ")
     print()
 
