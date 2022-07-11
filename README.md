@@ -16,11 +16,3 @@ so you don't need to install anything. Just use a Python 3 interpreter and run t
 ```
 % python3 bank.py
 ```
-
-## Team
-- Zeynab Akbari
-- Ali Aziminia
-- Mohammad Hossein Azimi
-- Fateme Zahra Marandi
-- Mina Mohammadi
-- Danial Kafash Tehrani
