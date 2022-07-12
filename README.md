@@ -16,4 +16,7 @@ so you don't need to install anything. Just use a Python 3 interpreter and run t
 ```
 % python3 bank.py
 ```
+<<<<<<< HEAD
 
+=======
+>>>>>>> b99a28cf63cff7e0c6264619a29c0b7e12a0d6a4
