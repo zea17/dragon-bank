@@ -335,6 +335,56 @@ def search_account(field, query):
         user = users.index(index)
         display_user_object(user, user["account_number"])
 
+# ——— MERGE ACCOUNTS —————————————————————————————————————————————————————————————
+        
+
+def merge_accounts(account_numbers_to_merge):
+    """
+    Merges the balance in each of the accounts keeping the first account, and then deleting the rest.
+    Checks that all the information is the same expect for the balance. If any information is different,
+    the user gets an error message.
+    """
+    users = get_data()
+    first_account_number = account_numbers_to_merge[0]
+    first_user_object = users[first_account_number]
+    full_name = first_user_object["full_name"]
+    account_creation_date = first_user_object["account_creation_date"]
+    gender =  first_user_object["gender"]
+    city = first_user_object["city"]
+    phone_number = first_user_object["phone_number"]
+
+    merge = True
+    total_balance = 0
+    for i in range(len(account_numbers_to_merge)):
+        total_balance += float(users[account_numbers_to_merge[i]]["balance"])
+        if users[account_numbers_to_merge[i]]["full_name"] != full_name:
+            merge = False
+            break
+        if users[account_numbers_to_merge[i]]["account_creation_date"] != account_creation_date:
+            merge = False
+            break
+        if users[account_numbers_to_merge[i]]["gender"] != gender:
+            merge = False
+            break
+        if users[account_numbers_to_merge[i]]["city"] != city:
+            merge = False
+            break
+        if users[account_numbers_to_merge[i]]["phone_number"] != phone_number:
+            merge = False
+            break
+
+    if merge:
+        for i in range(len(account_numbers_to_merge)):
+            if i != 0:
+                delete_account(account_numbers_to_merge[i])
+        users[first_account_number]["balance"] = str(total_balance)
+        set_data(users)
+        print("Accounts successfully merged under account number " + first_account_number)
+        display_user_object(first_user_object, first_account_number)
+    else:
+        print("──── Error ──────────────────────────────────")
+        print("Could not merge accounts: Account information does not match for all accounts.")
+
 
 # ─── DELETE AN ACCOUNT ──────────────────────────────────────────────────────────
 
@@ -481,13 +531,15 @@ def display_menu():
     print("  │                │  ├────────────────────────────┬╯     ")
     print("  │  D R A G O N   │  │ ▶︎ 3 • Update Account Info  │      ")
     print("  │  B A N K       │  ├───────────────────────┬────╯      ")
-    print("  │                │  │ ▶︎ 4 • Delete Account  │           ")
-    print("  │                │  ├───────────────────────┴────╮      ")
-    print("  │                │  │ ▶︎ 5 • Search Account Info  │      ")
-    print("  │                │  ├────────────────────────────┴╮     ")
-    print("  │ ║│┃┃║║│┃║│║┃│  │  │ ▶︎ 6 • View Customer's List  │     ")
-    print("  │ ║│┃┃║║│┃║│║┃│  │  ├────────────────────┬────────╯     ")
-    print("  │                │  │ ▶︎ 7 • Exit System  │              ")
+    print("  │                │  │ ▶︎ 4 • Merge Accounts  │           ")
+    print("  │                │  ├──────────────────────┬╯           ")
+    print("  │                │  │ ▶︎ 5 • Delete Account │            ")
+    print("  │                │  ├──────────────────────┴────╮       ")
+    print("  │                │  │ ▶︎ 6 • Search Account Info │       ")
+    print("  │                │  ├───────────────────────────┴╮      ")
+    print("  │ ║│┃┃║║│┃║│║┃│  │  │ ▶︎ 7 • View Customer's List │      ")
+    print("  │ ║│┃┃║║│┃║│║┃│  │  ├────────────────────┬───────╯      ")
+    print("  │                │  │ ▶︎ 8 • Exit System  │              ")
     print("  └────────────────┘  ╰────────────────────╯              ")
 
     user_choice = int(input("\n  ☞ Enter your command: "))
@@ -516,24 +568,37 @@ def display_menu():
         update_information(account_number)
 
     if user_choice == 4:
+        print("── Merging Accounts ──────────────────────")
+        number_of_accounts = int(input("Number of accounts to merge: "))
+        if number_of_accounts <= 1:
+            print("──── Error ──────────────────────────────────")
+            print("Must merge two or more accounts")
+        else:
+            account_numbers_to_merge = []
+            for i in range(number_of_accounts):
+                account_number = input("Account " + str((i+1)) + ": Account number to merge: ")
+                account_numbers_to_merge.append(account_number)
+            merge_accounts(account_numbers_to_merge)
+
+    if user_choice == 5:
         print("── Deleting an Account ──────────────────────")
         account_number = input("Account number to delete: ")
         delete_account(account_number)
 
-    if user_choice == 5:
+    if user_choice == 6:
         print("── Search Account ───────────────────────────")
         query = input("Searching for: ")
         clean_terminal_screen()
         search_account("full_name", query)
 
-    if user_choice == 6:
+    if user_choice == 7:
         print("── Displaying all Accounts ──────────────────")
         field = ask_user_what_field_to_sort_the_display_by()
         display_all_accounts_sorted_by(field)
 
         print("\n\nSorted by user", beatify_field_name(field))
 
-    if user_choice == 7:
+    if user_choice == 8:
         quit()
 
     print()
