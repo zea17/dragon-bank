@@ -335,6 +335,7 @@ def search_account(field, query):
         user = users.index(index)
         display_user_object(user, user["account_number"])
 
+
 # ——— MERGE ACCOUNTS —————————————————————————————————————————————————————————————
         
 
