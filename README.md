@@ -1,4 +1,4 @@
-# Dragon Bank
+# Dragon Bank by Zea
 
 <img width="644" alt="Screen Shot of Dragon Bank" src="https://user-images.githubusercontent.com/93328643/174447368-d8fba103-2da1-4cd2-a6e8-035ba3f24422.png">
 
