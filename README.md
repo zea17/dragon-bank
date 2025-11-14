@@ -17,3 +17,17 @@ so you don't need to install anything. Just use a Python 3 interpreter and run t
 % python3 bank.py
 ```
 
+## Design
+
+```mermaid
+graph TD
+    BO["Bank Owner / Clerk"]
+    DB[/"bank.json" Data Store/]
+    System(("Dragon Bank CLI System"))
+
+    BO -->|Create / update / merge / delete / search requests| System
+    System -->|Prompts, confirmations, account reports| BO
+
+    System -->|Read / write account profiles, balances, histories| DB
+    DB -->|Persisted customer records| System
+```
